@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:oxm="http://www.springframework.org/schema/oxm"
+	xmlns:jee="http://www.springframework.org/schema/jee"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-4.1.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.1.xsd
+		http://www.springframework.org/schema/oxm http://www.springframework.org/schema/oxm/spring-oxm-4.1.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.1.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.1.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.1.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.1.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.1.xsd">
+
+	<!-- 基于@Aspectj切面-->
+	<aop:aspectj-autoproxy proxy-target-class="true" />
+
+	<import resource="classpath*:spring/ApplicationContext-system.xml" />
+	<import resource="classpath*:spring/ApplicationContext-mybatis-oper.xml" />
+	
+	<!-- 支持MVC注解 -->
+	<mvc:annotation-driven>
+		<!-- 修复返回responsebody乱码问题 -->
+    	<mvc:message-converters register-defaults="true">
+    		<bean class="org.springframework.http.converter.StringHttpMessageConverter">
+      			<constructor-arg value="UTF-8"/>
+    		</bean>
+   		</mvc:message-converters>
+    </mvc:annotation-driven>
+	 <bean id="SpringBeans" class="org.gyzb.platform.web.admin.utils.SpringBeans"></bean>
+	<!-- 扫描组件 -->
+	<context:component-scan base-package="org.gyzb"/>
+	
+	<!-- 处理静态资源 -->
+	<mvc:default-servlet-handler/>
+	
+	<!-- 响应映射 -->
+	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver" p:prefix="/views/" p:suffix=".jsp" />
+	
+	
+</beans>

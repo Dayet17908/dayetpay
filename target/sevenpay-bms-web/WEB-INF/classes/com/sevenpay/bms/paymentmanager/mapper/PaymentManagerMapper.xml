@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.sevenpay.bms.paymentmanager.mapper.PaymentManagerMapper">
+
+	<select id="selecPaymentList" resultType="com.sevenpay.bms.paymentmanager.bean.TdPaymentBatDetail" parameterType="string">
+	SELECT
+	T.BAT_NO,
+	T.ROW_NO,
+	T.REC_ACCOUNT_NAME,
+	T.REC_ACCOUNT_NO,
+	T.REC_BANK_CODE,
+	T.REC_BANK_CNAPS,
+	T.TRANS_AMT,
+	T.STATUS,
+	T.PROC_MEMO,
+	T.CREATE_ID,
+	T.CREATE_TIME,
+	T.MODIFY_ID,
+	T.MODIFY_TIME
+	FROM
+	`stcdb`.`td_agent_payment_bat_detail_info` T
+	WHERE T.BAT_NO = #{batNo  ,jdbcType=VARCHAR}
+	</select>
+
+	<insert id="insertPaymentList" parameterType="ArrayList">
+	insert into `stcdb`.`td_agent_payment_bat_detail_info` (
+	`BAT_NO`,
+	`ROW_NO`,
+	`REC_ACCOUNT_NAME`,
+	`REC_ACCOUNT_NO`,
+	`REC_BANK_CODE`,
+	`REC_BANK_CNAPS`,
+	`TRANS_AMT`,
+	`STATUS`,
+	`PROC_MEMO`,
+	`CREATE_ID`,
+	`CREATE_TIME`
+	) values
+	<foreach collection="list" item="obj" index="index" separator=",">
+		(#{obj.batNo}, #{obj.rowNo}, #{obj.recAccountName},
+		#{obj.recAccountNo}, #{obj.recBankCode}, #{obj.recBankCnaps},
+		#{obj.transAmt}, #{obj.status}, #{obj.procMemo},
+		#{obj.createId},
+		now())
+	</foreach>
+    </insert>
+
+	<select id="selectCardBinList" resultType="com.sevenpay.bms.paymentmanager.bean.TdBankCardBin">
+		SELECT
+		T.CARD_BIN,
+		T.CARD_NAME,
+		T.CARD_TYPE,
+		T.BANK_CODE,
+		T.BANK_NAME,
+		T.CREATE_TIME
+		FROM
+		tb_bankcardbin_bank_ref T
+		ORDER BY
+		LENGTH(CARD_BIN) DESC;
+	</select>
+
+	<update id="upPaymentBatDetail"
+		parameterType="com.sevenpay.bms.paymentmanager.bean.TdPaymentBatDetail">
+		UPDATE `stcdb`.`td_agent_payment_bat_detail_info` T
+		<set>
+			<if test="recAccountName != null">
+				T.REC_ACCOUNT_NAME = #{recAccountName, jdbcType=VARCHAR},
+			</if>
+			<if test="recAccountNo != null">
+				T.REC_ACCOUNT_NO = #{recAccountNo, jdbcType=VARCHAR},
+			</if>
+			<if test="recBankCode != null">
+				T.REC_BANK_CODE = #{recBankCode, jdbcType=VARCHAR},
+			</if>
+			<if test="recBankCnaps != null">
+				T.REC_BANK_CNAPS = #{recBankCnaps, jdbcType=VARCHAR},
+			</if>
+			<if test="transAmt != null">
+				T.TRANS_AMT = #{transAmt, jdbcType=TIMESTAMP},
+			</if>
+			<if test="status != null">
+				T.STATUS = #{status, jdbcType=VARCHAR},
+			</if>
+			<if test="procMemo != null">
+				T.PROC_MEMO = #{procMemo,
+				jdbcType=TIMESTAMP},
+			</if>
+			<if test="modifyId != null">
+				T.MODIFY_ID = #{modifyId, jdbcType=VARCHAR},
+			</if>
+				T.MODIFY_TIME = now(),
+			
+		</set>
+		WHERE T.BAT_NO = #{batNo, jdbcType=VARCHAR}
+		<if test="rowNo != null">
+				AND T.ROW_NO = #{rowNo, jdbcType=VARCHAR}
+			</if>
+	</update>
+
+	<insert id="insertBatInfo"
+		parameterType="com.sevenpay.bms.paymentmanager.bean.TdPaymentBatInfo">
+		INSERT INTO `stcdb`.`td_agent_payment_bat_info` (
+		`BAT_NO`,
+		`PAER_ACCT_NO`,
+		`SUM_AMT`,
+		`SUM_COUNT`,
+		`BAT_STATUS`,
+		`CREATE_ID`,
+		`CREATE_TIME`
+		)
+		VALUES
+		(
+		#{batNo, jdbcType=VARCHAR},
+		#{paerAcctNo, jdbcType=VARCHAR},
+		#{sumAmt, jdbcType=VARCHAR},
+		#{sumCount, jdbcType=VARCHAR},
+		#{batStatus, jdbcType=VARCHAR},
+		#{createId, jdbcType=VARCHAR},
+		now()
+		);
+	</insert>
+
+	<update id="upPaymentBatInfo"
+		parameterType="com.sevenpay.bms.paymentmanager.bean.TdPaymentBatInfo">
+		UPDATE `stcdb`.`td_agent_payment_bat_info` T
+		<set>
+			<if test="paerAcctNo != null">
+				T.PAER_ACCT_NO = #{paerAcctNo, jdbcType=VARCHAR},
+			</if>
+			<if test="sumAmt != null">
+				T.SUM_AMT = #{sumAmt, jdbcType=VARCHAR},
+			</if>
+			<if test="sumCount != null">
+				T.SUM_COUNT = #{sumCount, jdbcType=VARCHAR},
+			</if>
+			<if test="succAmt != null">
+				T.SUCC_AMT = #{succAmt, jdbcType=VARCHAR},
+			</if>
+			<if test="succCount != null">
+				T.SUCC_COUNT = #{succCount, jdbcType=VARCHAR},
+			</if>
+			<if test="failAmt != null">
+				T.FAIL_AMT = #{failAmt, jdbcType=VARCHAR},
+			</if>
+			<if test="failCount != null">
+				T.FAIL_COUNT = #{failCount, jdbcType=VARCHAR},
+			</if>
+			<if test="batStatus != null">
+				T.BAT_STATUS = #{batStatus, jdbcType=VARCHAR},
+			</if>
+			<if test="createId != null">
+				T.CREATE_ID = #{createId, jdbcType=TIMESTAMP},
+			</if>
+			<if test="createTime != null">
+				T.CREATE_TIME = #{createTime, jdbcType=VARCHAR},
+			</if>
+
+			<if test="modifyId != null">
+				T.MODIFY_ID = #{modifyId, jdbcType=VARCHAR},
+			</if>
+				T.MODIFY_TIME = now(),
+		</set>
+		WHERE T.BAT_NO = #{batNo, jdbcType=VARCHAR}
+
+	</update>
+
+	<update id="updateDetailBatch" parameterType="list">
+		update `stcdb`.`td_agent_payment_bat_detail_info`
+		<trim prefix="SET" suffixOverrides=",">
+			<trim prefix="STATUS = CASE" suffix="END,">
+				<foreach collection="list" item="obj" index="index">
+					<if test="obj.status!=null">
+						when ROW_NO=#{obj.rowNo} then #{obj.status}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="MODIFY_ID = CASE" suffix="END,">
+				<foreach collection="list" item="obj" index="index">
+					<if test="obj.modifyId!=null">
+						when ROW_NO=#{obj.rowNo} then #{obj.modifyId}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="PROC_MEMO = CASE" suffix="END,">
+				<foreach collection="list" item="obj" index="index">
+					<if test="obj.procMemo!=null">
+						when ROW_NO=#{obj.rowNo} then #{obj.procMemo}
+					</if>
+				</foreach>
+			</trim>
+		</trim>
+		WHERE
+		<foreach collection="list" separator="or" item="obj" index="index">
+			ROW_NO=#{obj.rowNo}
+		</foreach>
+	</update>
+	
+	<select id="getBatchFailPaymentList" resultType="com.sevenpay.bms.paymentmanager.bean.TdPaymentBatDetail" parameterType="String">
+	SELECT
+		t.BAT_NO,
+		t.ROW_NO,
+		t.REC_ACCOUNT_NAME,
+		t.REC_ACCOUNT_NO,
+		t.REC_BANK_CODE,
+		t.REC_BANK_CNAPS,
+		t.TRANS_AMT,
+		t.`STATUS`,
+		t.PROC_MEMO,
+		s.user_name AS CREATE_ID,
+		DATE_FORMAT(t.CREATE_TIME, '%Y-%m-%d') AS CREATE_TIME
+	FROM
+		stcdb.td_agent_payment_bat_detail_info t
+	LEFT JOIN stcdb.sys_user s ON t.CREATE_ID = s.user_id
+	WHERE
+	   t.BAT_NO = #{batNo} and  
+		t.`STATUS` in ('03','04')
+	</select>
+</mapper>

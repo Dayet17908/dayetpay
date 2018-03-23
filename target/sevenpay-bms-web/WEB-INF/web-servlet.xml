@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.springframework.org/schema/beans"
+	xmlns:oxm="http://www.springframework.org/schema/oxm"
+	xsi:schemaLocation="
+           http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.1.xsd
+           http://www.springframework.org/schema/oxm   http://www.springframework.org/schema/oxm/spring-oxm-4.1.xsd
+       ">
+	<!-- 交易撤销 -->
+	<bean id="revocationService" class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
+		<property name="service" ref="revocationImpl" />
+		<property name="serviceInterface" value="com.stc.gateway.unionpay.AsynResponseListener" />
+	</bean>
+	<bean id="unionPayRevocationServiceUrlMapping"
+		class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+		<property name="mappings">
+			<props>
+				<prop key="/unionpay/revocation">revocationService</prop>
+			</props>
+		</property>
+	</bean>
+
+	<!-- 退款 -->
+	<bean id="refundService" class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
+		<property name="service" ref="refundImpl" />
+		<property name="serviceInterface" value="com.stc.gateway.unionpay.AsynResponseListener" />
+	</bean>
+	<bean id="unionPayRefundServiceUrlMapping"
+		class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+		<property name="mappings">
+			<props>
+				<prop key="/unionpay/refund">refundService</prop>
+			</props>
+		</property>
+	</bean>
+</beans>

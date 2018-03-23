@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<configuration>
+	<!-- 控制台打印输出 -->
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>%date %level [%thread] %X{thread_token} user_id:[%X{user_id}] %logger{10} [%file:%line] %msg%n</pattern>
+		</encoder>
+	</appender>
+	<!-- 文件日志 -->
+	<appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>/data/app/applications/log/bms/sevenpay-bms-web.log</file> 
+		 
+         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+         <!-- linux 下后缀为gz, window 下后缀为zip -->
+		    <fileNamePattern>/data/app/applications/log/bms/sevenpay-bms-web_%d{yyyy-MM-dd-HH}_%i.log.gz</fileNamePattern>
+	      	<timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+	    	 	<maxFileSize>100MB</maxFileSize>
+	   	  	</timeBasedFileNamingAndTriggeringPolicy>        
+		  </rollingPolicy>
+		  
+        <encoder>
+        	<pattern>%date %level [%thread] %X{thread_token} user_id:[%X{user_id}] %logger{10} [%file:%line] %msg%n</pattern>
+        	<charset>UTF-8</charset>
+        </encoder>
+    </appender>  
+    
+    <appender name="httpClientConnect_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>/data/app/applications/log/stc_web/httpClientConnect.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">  
+            <FileNamePattern>/data/app/applications/log/stc_web/httpClientConnect_%d{yyyy-MM-dd-HH}_%i.log.gz</FileNamePattern>
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+            	<maxFileSize>100MB</maxFileSize>
+	   	  	</timeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>  
+        <encoder>
+        	<pattern>%date %level [%thread] %X{thread_token} %logger{10} [%file:%line] %msg%n</pattern>
+        	<charset>UTF-8</charset>
+        </encoder>
+    </appender>
+
+	<root level="${LOG.LEVEL}">
+		<appender-ref ref="FILE" />
+		<appender-ref ref="STDOUT" />
+	</root>
+	<logger name="org.apache.http" level="info" additivity="false">
+		<appender-ref ref="httpClientConnect_FILE" />
+	</logger>
+	
+</configuration>

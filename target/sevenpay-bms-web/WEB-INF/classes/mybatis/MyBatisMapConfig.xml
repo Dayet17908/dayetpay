@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+	<!-- 默认驼峰命名法 -->
+	<settings>
+		<setting name="mapUnderscoreToCamelCase" value="true" />
+	</settings>
+	
+	<!-- 别名 -->
+	<typeAliases>
+		<typeAlias alias="bank" type="com.sevenpay.bms.basemanager.bank.bean.Bank" />
+		<typeAlias alias="certify" type="com.sevenpay.bms.basemanager.certify.bean.Certify" />
+		<typeAlias alias="city" type="com.sevenpay.bms.basemanager.city.bean.City" />
+		<typeAlias alias="fee" type="com.sevenpay.bms.basemanager.fee.bean.Fee" />
+		<typeAlias alias="rule" type="com.sevenpay.bms.basemanager.rule.bean.Rule" />
+		<typeAlias alias="photo" type="com.sevenpay.bms.basemanager.photo.bean.Photo" />
+		<typeAlias alias="question" type="com.sevenpay.bms.basemanager.question.bean.Question"/>
+		<typeAlias alias="ad" type="com.sevenpay.bms.basemanager.advertisement.bean.Ad"/>
+		<typeAlias alias="merchantVo" type="com.sevenpay.bms.basemanager.merchant.bean.MerchantVo"/>
+		<typeAlias alias="feeRule" type="com.sevenpay.bms.basemanager.feerule.bean.FeeRule"/>	
+		<typeAlias alias="custInfo" type="com.sevenpay.bms.basemanager.custInfo.bean.TdCustInfo"/>
+		<typeAlias alias="privilegeInfo" type="com.sevenpay.bms.basemanager.BlackAndWhite.bean.PrivilegeInfo"/>	
+		<typeAlias alias="privilege" type="com.sevenpay.bms.basemanager.privilegeControl.bean.Privilege"/>
+		<typeAlias alias="subjectInfo" type="com.sevenpay.bms.accounting.subjectInfo.bean.SubjectInfo"/>	
+		<typeAlias alias="subjectConfig" type="com.sevenpay.bms.accounting.subjectConfig.bean.SubjectConfig"/>	
+		<typeAlias alias="scheduler" type="org.sevenpay.platform.web.scheduler.bean.SchedulerJob"/>
+		<typeAlias alias="balResultStatistic" type="com.sevenpay.bms.accounting.checkquery.bean.BalResultStatistic"/>
+		<typeAlias alias="resultException" type="com.sevenpay.bms.accounting.checkquery.bean.BalSevenResultException"/>
+		<typeAlias alias="subjectSummary" type="com.sevenpay.bms.accounting.subjectSummary.bean.SubjectSummary"/>
+		<typeAlias alias="resultEqual" type="com.sevenpay.bms.accounting.checkquery.bean.BalSevenResultEqual"/>
+		<typeAlias alias="financeSum" type="com.sevenpay.bms.accounting.financequery.bean.FinanceSum"/>
+		 <typeAlias alias="queryWaterVo" type="com.sevenpay.bms.accounting.financequery.bean.QueryWaterVo"/>
+		<typeAlias alias="realTimeBussBalanceWater" type="com.sevenpay.bms.accounting.financequery.bean.RealTimeBussBalanceWater"/>
+		<typeAlias alias="realTimeCustBalanceWater" type="com.sevenpay.bms.accounting.financequery.bean.RealTimeCustBalanceWater"/>
+		 <typeAlias alias="changeBalance" type="com.sevenpay.bms.accounting.financequery.bean.ChangeBalance"/>
+		 <typeAlias alias="commerciaBalance" type="com.sevenpay.bms.accounting.financequery.bean.CommerciaBalance"/>
+		<typeAlias alias="userBalance" type="com.sevenpay.bms.accounting.financequery.bean.UserBalance"/>
+		<typeAlias alias="schedulerLog" type="org.sevenpay.platform.web.schedulerLog.bean.SchedulerLog"/>
+ 		<typeAlias alias="clearJgkjRegister" type="com.sevenpay.bms.accounting.unnamedProcessing.clearJgkjregister.bean.ClearJgkjRegister"/>
+		<typeAlias alias="clearJgkjTrade" type="com.sevenpay.bms.accounting.unnamedProcessing.clearjgkjtrade.bean.ClearJgkjTrade"/>
+		<typeAlias alias="merchantInControl" type="com.sevenpay.bms.basemanager.merchantincontrol.bean.MerchantInControl"/>
+		<typeAlias alias="channleAgentMerInfo" type="com.sevenpay.bms.merchant.channel.bean.AgentMerInfo"/>
+		
+		
+
+
+		
+
+		
+	</typeAliases>
+	
+	<!-- 分页插件 -->
+	<plugins>
+		<plugin interceptor="org.gyzb.platform.web.page.plugin.MybatisPagePluginMysql" />
+	</plugins>
+
+</configuration>

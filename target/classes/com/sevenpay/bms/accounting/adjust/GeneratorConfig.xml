@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+	<context id="Transaction" targetRuntime="MyBatis3">
+
+		<!-- 不要产生注释 -->
+		<commentGenerator>
+			<property name="suppressAllComments" value="true" />
+		</commentGenerator>
+
+		<!-- 数据库连接 -->
+		<jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://10.0.0.4:3306/stcdb" userId="stc_web_user" password="123456">
+		</jdbcConnection>
+
+		<!-- 可能映射非BigDecimal内置类 -->
+		<javaTypeResolver>
+			<property name="forceBigDecimals" value="false" />
+		</javaTypeResolver>
+
+		<!-- bean生成规则 -->
+		<javaModelGenerator targetPackage="com.sevenpay.bms.accounting.adjust.bean" targetProject="./src/main/java">
+		</javaModelGenerator>
+
+		<!-- XML生成规则 -->
+		<sqlMapGenerator targetPackage="com.sevenpay.bms.accounting.adjust.dao" targetProject="./src/main/java">
+		</sqlMapGenerator>
+
+		<!-- Mapper生成规则 -->
+		<javaClientGenerator type="XMLMAPPER" targetPackage="com.sevenpay.bms.accounting.adjust.dao" targetProject="./src/main/java">
+		</javaClientGenerator>
+
+		<!-- 要产生的表 -->
+		
+		<!-- 
+		<table tableName="BMS_TD_ACCOUNTING_ADJUST_MAIN" domainObjectName="AccountingAdjustMain">
+			<property name="useActualColumnNames" value="false" />
+		</table>
+		-->
+		<table tableName="bms_td_accounting_adjust_detail" domainObjectName="AccountingAdjustDetail">
+			<property name="useActualColumnNames" value="false" />
+		</table>
+		
+	</context>
+</generatorConfiguration>

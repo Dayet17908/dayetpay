@@ -1,0 +1,241 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.sevenpay</groupId>
+	<artifactId>sevenpay-bms-web</artifactId>
+	<packaging>war</packaging>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>sevenpay-bms-web Maven Webapp</name>
+	<url>http://maven.apache.org</url>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+	</properties>
+
+	<repositories>
+		<repository>
+			<id>gyzb-repository</id>
+			<url>http://192.168.1.15:8081/nexus/content/groups/public/</url>
+		</repository>
+	</repositories>
+	<dependencies>
+		<!-- 行政管理依赖 start -->
+		<dependency>
+			<groupId>com.gyzb.platform</groupId>
+			<artifactId>gyzb-platform-web-admin</artifactId>
+			<version>1.0</version>
+			<type>war</type>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.gyzb.platform</groupId>
+			<artifactId>gyzb-platform-web-admin</artifactId>
+			<version>1.0</version>
+			<type>jar</type>
+			<classifier>classes</classifier>
+		</dependency>
+		<dependency>
+			<groupId>com.gyzb.platform</groupId>
+			<artifactId>gyzb-platform-common</artifactId>
+			<version>1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.gyzb.platform</groupId>
+			<artifactId>gyzb-platform-third</artifactId>
+			<version>1.0</version>
+		</dependency>
+		<!-- 行政管理依赖 end -->
+		<dependency>
+			<groupId>com.sevenpay.gateway</groupId>
+			<artifactId>jgkj-invoke</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		<!-- servlet 与jsp配套引入 （自定义标签） -->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>3.1.0</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context-support</artifactId>
+			<version>4.1.0.RELEASE</version>
+		</dependency>
+
+		<dependency>
+			<groupId>commons-fileupload</groupId>
+			<artifactId>commons-fileupload</artifactId>
+			<version>1.3</version>
+		</dependency>
+		<dependency>
+			<groupId>com.sun.mail</groupId>
+			<artifactId>javax.mail</artifactId>
+			<version>1.4.7</version>
+		</dependency>
+		<dependency>
+			<groupId>com.sevenpay</groupId>
+			<artifactId>sevenpay-core-invoke</artifactId>
+			<version>1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>poi</groupId>
+			<artifactId>poi</artifactId>
+			<version>3.7</version>
+		</dependency>
+		<dependency>
+			<groupId>org.activiti</groupId>
+			<artifactId>activiti-engine</artifactId>
+			<version>5.17.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.activiti</groupId>
+			<artifactId>activiti-spring</artifactId>
+			<version>5.17.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.sevenpay.gateway</groupId>
+			<artifactId>unionpay-invoke</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.sevenpay.plugin</groupId>
+			<artifactId>sevenpay-plugin-invoke</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.sevenpay.gateway</groupId>
+			<artifactId>k3cloud-invoke</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi-ooxml</artifactId>
+			<version>3.10-FINAL</version>
+		</dependency>
+
+		<!-- 手机消息推送 -->
+		<dependency>
+			<groupId>com.google.code.gson</groupId>
+			<artifactId>gson</artifactId>
+			<version>2.3.1</version>
+		</dependency>
+		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+			<version>18.0</version>
+		</dependency>
+		<dependency>
+			<groupId>cn.jpush.api</groupId>
+			<artifactId>jpush-client</artifactId>
+			<version>3.2.7</version>
+		</dependency>
+
+		<dependency>
+			<groupId>qifenqian.redis</groupId>
+			<artifactId>jedis-2.5.2-qifenqian</artifactId>
+			<version>2.5.2</version>
+			<classifier>qifenqian</classifier>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-pool2</artifactId>
+			<version>2.4.2</version>
+		</dependency>
+		<dependency>
+			<groupId>com.seven.module</groupId>
+			<artifactId>seven-skeleton</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.seven.module</groupId>
+			<artifactId>seven-skeleton</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		<!-- 优图 -->
+		<dependency>
+			<groupId>com.youtu</groupId>
+			<artifactId>youtu-java-sdk</artifactId>
+			<version>1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.youtu</groupId>
+			<artifactId>json</artifactId>
+			<version>1.0</version>
+		</dependency>
+
+
+	</dependencies>
+	<build>
+		<finalName>sevenpay-bms-web</finalName>
+		<filters>
+			<filter>${project.basedir}/src/main/resources/env/env-${env}.properties</filter>
+		</filters>
+		<resources>
+			<resource>
+				<directory>src/main/java</directory>
+				<includes>
+					<include>**/*.xml</include>
+					<include>**/*.tld</include>
+					<include>*.properties</include>
+				</includes>
+				<filtering>true</filtering>
+			</resource>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
+				<excludes>
+					<exclude>env/*</exclude>
+				</excludes>
+			</resource>
+		</resources>
+		<plugins>
+			<!-- 跳过测试 -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<configuration>
+					<skip>true</skip>
+				</configuration>
+			</plugin>
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.7</source>
+					<target>1.7</target>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+	<profiles>
+		<profile>
+			<id>test</id>
+			<properties>
+				<env>test</env>
+			</properties>
+		</profile>
+		<profile>
+			<id>dev</id>
+			<properties>
+				<env>dev</env>
+			</properties>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+		</profile>
+		<profile>
+			<id>prod</id>
+			<properties>
+				<env>prod</env>
+			</properties>
+			
+		</profile>
+	</profiles>
+
+</project>

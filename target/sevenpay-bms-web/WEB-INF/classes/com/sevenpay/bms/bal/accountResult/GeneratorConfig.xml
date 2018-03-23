@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+	<context id="Transaction" targetRuntime="MyBatis3">
+
+		<!-- 不要产生注释 -->
+		<commentGenerator>
+			<property name="suppressAllComments" value="true" />
+		</commentGenerator>
+
+		<!-- 数据库连接 -->
+		<jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://192.168.1.12:3306/combinedpayment" userId="combinedpayment" password="combinedpayment">
+		</jdbcConnection>
+
+		<!-- 可能映射非BigDecimal内置类 -->
+		<javaTypeResolver>
+			<property name="forceBigDecimals" value="false" />
+		</javaTypeResolver>
+
+		<!-- bean生成规则 -->
+		<javaModelGenerator targetPackage="com.sevenpay.bms.bal.accountResult.bean" targetProject="./src/main/java">
+		</javaModelGenerator>
+
+		<!-- XML生成规则 -->
+		<sqlMapGenerator targetPackage="com.sevenpay.bms.bal.accountResult.mapper" targetProject="./src/main/java">
+		</sqlMapGenerator>
+
+		<!-- Mapper生成规则 -->
+		<javaClientGenerator type="XMLMAPPER" targetPackage="com.sevenpay.bms.bal.accountResult.mapper" targetProject="./src/main/java">
+		</javaClientGenerator>
+
+		<!-- 要产生的表 -->
+		
+		<table tableName="bal_batch_result_statistic" domainObjectName="BalBatchResultStatistic">
+			<property name="useActualColumnNames" value="false" />
+		</table>
+		
+		<table tableName="bal_external_data" domainObjectName="BalExternalData">
+			<property name="useActualColumnNames" value="false" />
+		</table>
+		
+		<table tableName="bal_external_result_equal" domainObjectName="BalExternalResultEqual">
+			<property name="useActualColumnNames" value="false" />
+		</table>
+		
+		<table tableName="bal_external_result_exception" domainObjectName="BalExternalResultException">
+			<property name="useActualColumnNames" value="false" />
+		</table>
+		
+		<table tableName="bal_internal_data" domainObjectName="BalInternalData">
+			<property name="useActualColumnNames" value="false" />
+		</table>
+		
+		<table tableName="bal_internal_result_equal" domainObjectName="BalInternalResultEqual">
+			<property name="useActualColumnNames" value="false" />
+		</table>
+		
+		<table tableName="bal_internal_result_exception" domainObjectName="BalInternalResultException">
+			<property name="useActualColumnNames" value="false" />
+		</table>
+		
+	</context>
+</generatorConfiguration>

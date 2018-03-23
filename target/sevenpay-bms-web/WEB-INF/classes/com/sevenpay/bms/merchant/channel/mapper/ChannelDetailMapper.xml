@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sevenpay.bms.merchant.channel.mapper.ChannelDetailMapper">
+	<!-- 根据查询条件获取商户详情列表 -->
+	<select id="listChannelDetail" parameterType="com.sevenpay.bms.merchant.channel.bean.ChannelDetailBean" resultType="com.sevenpay.bms.merchant.channel.bean.ChannelDetailBean">
+		SELECT
+			T.MER_NO,
+			T.MER_CUST_ID,
+			T.PAY_TYPE,
+			T.SUB_PAY_TYPE,
+			T.CREATE_TIME,
+			T.MODIFY_TIME,
+			T.STATUS,
+			T.MER_KEY,
+			T.RESERVED	
+		FROM
+			COMBINEDPAYMENT.TD_CHANNEL_AGENT_MER_DETAIL T
+		<where>
+			<if test="merNo != null and merNo !='' "> AND T.MER_NO LIKE CONCAT('%',#{merNo, jdbcType=VARCHAR},'%')</if>
+			<if test="subPayType != null and subPayType !='' "> AND T.SUB_PAY_TYPE LIKE CONCAT('%',#{subPayType, jdbcType=VARCHAR},'%')</if>
+			<if test="status != null and status !='' "> AND T.STATUS =#{status, jdbcType=VARCHAR}</if>
+			<if test="status == null or status =='' "> AND T.STATUS !='99'</if>
+			<if test="payType != null and payType !='' "> AND T.PAY_TYPE =#{payType, jdbcType=VARCHAR}</if>
+		</where>
+		ORDER BY T.MODIFY_TIME DESC
+	</select>
+	<!--  保存商户详情信息  -->
+	<insert id="saveChannelDetail" parameterType="com.sevenpay.bms.merchant.channel.bean.ChannelDetailBean">
+		INSERT INTO COMBINEDPAYMENT.TD_CHANNEL_AGENT_MER_DETAIL
+		(
+			`MER_NO`,
+			`MER_CUST_ID`,
+			`PAY_TYPE`,
+			`SUB_PAY_TYPE`,
+			`STATUS`,
+			`CREATE_TIME`,		
+			`MER_KEY`,
+			`RESERVED`
+		)
+		VALUES
+		(
+			#{merNo},
+			#{merCustId},
+			#{payType},
+			#{subPayType},
+			#{status},
+			#{createTime},
+			#{merKey},
+			#{reserved}
+		)	
+	</insert>
+	<!-- 修改商户详情信息 -->
+	<update id="updateChannelDetail" parameterType="com.sevenpay.bms.merchant.channel.bean.UpdateChannelDetailBean">
+		UPDATE COMBINEDPAYMENT.TD_CHANNEL_AGENT_MER_DETAIL
+		<set>
+			MER_NO=#{merNo},
+			MER_CUST_ID=#{merCustId},
+			PAY_TYPE=#{payType},
+			SUB_PAY_TYPE=#{subPayType},
+			MODIFY_TIME=#{modifyTime},
+			STATUS=#{status},
+			MER_KEY=#{merKey}
+		</set>
+		WHERE MER_NO=#{oldMerNo} AND PAY_TYPE=#{oldPayType} AND SUB_PAY_TYPE=#{oldSubPayType}
+	</update>
+
+	<!-- 根据商户id删除商户详情信息 逻辑删除，将状态置为99-->
+	<delete id="deleteChannelDetail" parameterType="com.sevenpay.bms.merchant.channel.bean.ChannelDetailBean">
+		UPDATE COMBINEDPAYMENT.TD_CHANNEL_AGENT_MER_DETAIL
+		<set>	
+			STATUS=#{status}			
+		</set>
+		WHERE MER_NO=#{merNo} AND PAY_TYPE=#{payType} AND SUB_PAY_TYPE=#{subPayType}
+	</delete>
+</mapper>

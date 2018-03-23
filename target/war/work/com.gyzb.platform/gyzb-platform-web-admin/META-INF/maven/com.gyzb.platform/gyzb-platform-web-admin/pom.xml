@@ -1,0 +1,157 @@
+<?xml version="1.0"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>com.gyzb.platform</groupId>
+    <artifactId>gyzb-platform</artifactId>
+    <version>1.0</version>
+  </parent>
+  <artifactId>gyzb-platform-web-admin</artifactId>
+  <packaging>war</packaging>
+  <name>gyzb-platform-web-admin Maven Webapp</name>
+  <url>http://maven.apache.org</url>
+  <!-- 版本 -->
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.release.version>1.0</project.release.version>
+  </properties>
+  
+  <profiles>
+  	<profile>
+    	<id>product</id>
+	    <properties>
+ 	        <project.release.version>0.0.1</project.release.version>
+	    </properties>
+    </profile>
+  </profiles>
+  
+  <repositories>
+       <repository>
+           <id>gyzb-repository</id>
+           <url>http://192.168.1.15:8081/nexus/content/groups/public/</url>
+       </repository>
+   </repositories>
+
+  <!-- 远程发布 -->
+  <distributionManagement>
+  	<repository>
+    	<id>gyzb-release</id>
+    	<url>http://192.168.1.15:8081/nexus/content/repositories/releases</url>
+    </repository>
+    <snapshotRepository>
+    	<id>gyzb-snapshot</id>
+    	<url>http://192.168.1.15:8081/nexus/content/repositories/snapshots</url>
+    </snapshotRepository>
+  </distributionManagement>
+
+   <dependencies>
+   	<dependency>
+      <groupId>com.gyzb.platform</groupId>
+      <artifactId>gyzb-platform-web</artifactId>
+      <version>${version.com.gyzb.platform}</version>
+      <type>war</type>  
+      <scope>runtime</scope>
+    </dependency>
+	<dependency>
+      <groupId>com.gyzb.platform</groupId>
+      <artifactId>gyzb-platform-web</artifactId>
+      <version>${version.com.gyzb.platform}</version>
+      <type>jar</type>  
+      <classifier>classes</classifier>  
+    </dependency>
+	<!-- sso start -->
+  	<dependency>
+	  <groupId>org.jasig.cas</groupId>
+	  <artifactId>cas-client-core</artifactId>
+	  <version>3.4.1</version>
+	</dependency>
+	<!-- sso end -->
+  </dependencies>
+  
+  <build>
+    <finalName>gyzb-platform-web-admin</finalName>
+    
+    <resources>
+		<resource>
+			<directory>src/main/java</directory>
+			<includes>
+				<include>**/*.xml</include>
+				<include>**/*.tld</include>  
+			</includes>
+			<filtering>true</filtering>
+		</resource>
+		<resource>
+			<directory>src/main/resources</directory>
+			<includes>
+				<include>**/*.xml</include>
+				<include>**/*.tld</include>  
+				<include>*.properties</include>
+			</includes>
+			<filtering>true</filtering>
+		</resource>
+	</resources>
+	<plugins>
+		<!-- 跳过测试 -->
+		<plugin>
+	        <groupId>org.apache.maven.plugins</groupId>
+	        <artifactId>maven-surefire-plugin</artifactId>
+	        <configuration>
+	          <skip>true</skip>
+	        </configuration>
+	    </plugin>
+	    <plugin>
+		    <groupId>org.apache.maven.plugins</groupId>
+		    <artifactId>maven-war-plugin</artifactId>
+		    <version>2.4</version>
+		    <configuration>
+		    	<overlays>  
+                    <overlay>  
+                        <groupId>com.gyzb.platform</groupId>
+      					<artifactId>gyzb-platform-web</artifactId>
+                    </overlay>  
+                </overlays>  
+		    
+		    	<attachClasses>true</attachClasses><!-- 把class打包jar作为附件 -->  
+                <archiveClasses>true</archiveClasses><!-- 把class打包jar 可以让集成系统调用--> 
+                <webResources>  
+	      			<resource>  
+			        <directory>src\main\resources</directory>  
+			        <targetPath>WEB-INF\classes</targetPath>  
+			        <includes>  
+			          <include>**</include>  
+			        </includes>  
+			      </resource>  
+			    </webResources>  
+                
+		    </configuration>
+		</plugin>
+		<plugin>
+			<artifactId>maven-compiler-plugin</artifactId>
+			<version>3.1</version>
+			<configuration>
+				<source>1.7</source>
+				<target>1.7</target>  
+			</configuration>
+		</plugin>
+		
+		<!-- tomcat delopy run as  tomcat7:redeploy-->
+		<plugin>
+		    <groupId>org.apache.tomcat.maven</groupId>
+            <artifactId>tomcat7-maven-plugin</artifactId>
+            <version>2.1</version>
+		    <configuration>
+				<url>http://10.0.0.8:3301/manager/text</url>
+				<username>root</username>
+				<password>123456</password>
+				<port>3301</port>
+				<path>/platform-web-admin</path>
+				
+				<charset>${project.build.sourceEncoding}</charset>  
+				<uriEncoding>${project.build.sourceEncoding}</uriEncoding>
+				<update>true</update>
+		    </configuration>
+		</plugin>
+	</plugins>
+  </build>
+</project>

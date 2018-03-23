@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.springframework.org/schema/beans"
+	xmlns:oxm="http://www.springframework.org/schema/oxm"
+	xsi:schemaLocation="
+           http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.1.xsd
+           http://www.springframework.org/schema/oxm   http://www.springframework.org/schema/oxm/spring-oxm-4.1.xsd
+       ">
+
+	<!-- 调用核心的接口 -->
+	<bean id="coreHttpInvokerProxy" class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
+		<property name="serviceUrl" value="http://127.0.0.1:1234/remoting/service" />
+		<property name="serviceInterface" value="com.sevenpay.invoke.SevenpayCoreServiceInterface" />
+		<property name="httpInvokerRequestExecutor">
+			<bean class="org.springframework.remoting.httpinvoker.HttpComponentsHttpInvokerRequestExecutor"></bean>
+		</property>
+	</bean>
+
+	<!-- 调用交广科技网关的接口 -->
+	<bean id="expressPayHttpInvokerProxy"
+		class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
+		<property name="serviceUrl" value="http://127.0.0.1:1234/gateway/jgkj" />
+		<property name="serviceInterface" value="com.sevenpay.gateway.jgkj.IJgkj" />
+		<property name="httpInvokerRequestExecutor">
+			<bean class="org.springframework.remoting.httpinvoker.HttpComponentsHttpInvokerRequestExecutor"></bean>
+		</property>
+	</bean>
+
+	<!-- 调用银联接口 -->
+	<bean id="httpInvokerProxyGatewayUnionPay"
+		class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
+		<property name="serviceUrl" value="http://127.0.0.1:9001/gateway/unionpay" />
+		<property name="serviceInterface" value="com.stc.gateway.unionpay.IUnionPay" />
+		<property name="httpInvokerRequestExecutor">
+			<bean class="org.springframework.remoting.httpinvoker.HttpComponentsHttpInvokerRequestExecutor"></bean>
+		</property>
+	</bean>
+
+	<!-- 调用plugin接口:SMS,EMAIL  -->
+	<bean id="pluginInvokerProxy" class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
+		<property name="serviceUrl" value="http://127.0.0.1:5002/servlet/sevenpay/plugin" />
+		<property name="serviceInterface" value="com.sevenpay.plugin.IPlugin" />
+		<property name="httpInvokerRequestExecutor">
+			<bean class="org.springframework.remoting.httpinvoker.HttpComponentsHttpInvokerRequestExecutor"></bean>
+		</property>
+	</bean>
+
+	<!-- 调用金蝶接口 -->
+	<bean id="httpInvokerProxyGatewayKingdeePay"
+		class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
+		<property name="serviceUrl" value="http://127.0.0.1:15300/gateway/k3cloud" />
+		<property name="serviceInterface" value="com.sevenpay.gateway.k3cloud.IK3Cloud" />
+		<property name="httpInvokerRequestExecutor">
+			<bean class="org.springframework.remoting.httpinvoker.HttpComponentsHttpInvokerRequestExecutor"></bean>
+		</property>
+	</bean>
+</beans>
